@@ -36,7 +36,11 @@ class Blockchain:
             if hash_operation[:4] == "0000":
                 check_proof = True
             else:
-                new_proof +=1
-                    
+                new_proof +=1    
+        return new_proof    
+
+    def hash(self, block):
+        encoded_block = json.dumps(block, sort keys=True).encode()
+        return hashlib.sha256(encoded_block).hexdigest()
         
     
