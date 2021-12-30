@@ -19,7 +19,7 @@ class Blockchain:
         
     def create_block(self, proof, previous_hash):
         block = {'index': len(self.chain)+1,
-                 "timestamp": str(datetime.datetime.now())
+                 "timestamp": str(datetime.datetime.now()),
                  "proof": proof,
                  "previous_hash": previous_hash
             }
@@ -41,7 +41,7 @@ class Blockchain:
         return new_proof    
 
     def hash(self, block):
-        encoded_block = json.dumps(block, sort keys=True).encode()
+        encoded_block = json.dumps(block, sort_keys=True).encode()
         return hashlib.sha256(encoded_block).hexdigest()
     
     def is_chain_valid(self, chain):
@@ -96,5 +96,3 @@ def get_chain():
 # Run the app
 app.run(host = '0.0.0.0', port = 5000)
 
-        
-    
