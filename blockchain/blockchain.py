@@ -5,6 +5,8 @@ Created on Wed Dec  1 16:47:47 2021
 @author: AntonioCopete
 """
 
+# Module 1 - Create a blockchain
+
 import datetime
 import hashlib
 import json
