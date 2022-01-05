@@ -159,6 +159,32 @@ def add_transaction():
 
 # Part 3 -Decentralize the blockchain
 
+# Connect new nodes
+@app.route('connect_node', methods = ['POST'])
+def connect_node():
+    json = request.get_json()
+    nodes = json.get('nodes')
+    if nodes is None:
+        return 'There are no nodes to add', 400
+    for node in nodes:
+        blockchain.add_node(node)
+    response = {'message': 'Every node is connected. The blockchain of CopeteCoins has the next nodes: ',
+                'total_nodes': list(blockchain.nodes)}
+    return jsonify(response), 201
+
+# Replace the blockchain for the longest chain if needed
+@app.route('/replace_chain', methods=['GET'])
+def replace_chain():
+    is_chain_replaced = blockchain.replace_chain(blockchain.chain)
+    if is_chain_replaced:
+        response = {'message': 'The nodes had different chains, their chains has been replaced for the longest chain',
+                    'new_chain': blockchain.chain}
+    else:
+        response = {'message': 'Ok. The blockchain in every node is already the longest chain',
+                    'actual_chain': blockchain.chain}
+    return jsonify(response), 200
+        
+
 # Run the app
 app.run(host = '0.0.0.0', port = 5000)
 
