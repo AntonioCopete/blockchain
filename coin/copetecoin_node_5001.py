@@ -175,7 +175,7 @@ def connect_node():
 # Replace the blockchain for the longest chain if needed
 @app.route('/replace_chain', methods=['GET'])
 def replace_chain():
-    is_chain_replaced = blockchain.replace_chain(blockchain.chain)
+    is_chain_replaced = blockchain.replace_chain()
     if is_chain_replaced:
         response = {'message': 'The nodes had different chains, their chains has been replaced for the longest chain',
                     'new_chain': blockchain.chain}
