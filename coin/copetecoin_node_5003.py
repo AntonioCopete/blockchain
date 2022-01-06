@@ -13,7 +13,7 @@ import json
 from flask import Flask, jsonify, request
 import requests
 from uuid import uuid4
-import urllib.parse
+from urllib.parse import urlparse
 
 # Part 1 - Create the blockchain
 class Blockchain:
@@ -77,7 +77,7 @@ class Blockchain:
         return previous_block['index'] + 1    
     
     def add_node(self, address):
-        parsed_url = urllib.parse(address)
+        parsed_url = urlparse(address)
         self.nodes.add(parsed_url.netloc)
         
     def replace_chain(self):
