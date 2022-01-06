@@ -13,7 +13,7 @@ import json
 from flask import Flask, jsonify, request
 import requests
 from uuid import uuid4
-from urllib import urlparse
+import urllib.parse
 
 # Part 1 - Create the blockchain
 class Blockchain:
@@ -77,7 +77,7 @@ class Blockchain:
         return previous_block['index'] + 1    
     
     def add_node(self, address):
-        parsed_url = urlparse(address)
+        parsed_url = urllib.parse(address)
         self.nodes.add(parsed_url.netloc)
         
     def replace_chain(self):
@@ -147,7 +147,7 @@ def is_valid():
     return jsonify(response), 200
 
 # Add a new transaction to the blockchain
-@app.route('add_transaction', methods = ['POST'])
+@app.route('/add_transaction', methods = ['POST'])
 def add_transaction():
     json = request.get_json()
     transaction_keys = ['sender', 'receiver', 'amount']
@@ -160,7 +160,7 @@ def add_transaction():
 # Part 3 -Decentralize the blockchain
 
 # Connect new nodes
-@app.route('connect_node', methods = ['POST'])
+@app.route('/connect_node', methods = ['POST'])
 def connect_node():
     json = request.get_json()
     nodes = json.get('nodes')
